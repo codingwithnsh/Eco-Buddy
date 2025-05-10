@@ -10,26 +10,83 @@ from datetime import datetime
 
 # Constants
 DAILY_EMISSION_FACTORS = {
-    "Car Usage (km)": 0.2,
-    "Motorcycle Usage (km)": 0.1,
-    "Public Bus (km)": 0.05,
-    "Train/Subway (km)": 0.04,
-    "Air Travel (short-haul, km)": 0.15,
-    "Air Travel (long-haul, km)": 0.11,
-    "Bicycle Manufacturing (unit)": 5,
-    "Walking Shoes (pair)": 20,
-    "Electricity Usage (kWh)": 0.5,
-    "Natural Gas Usage (kWh)": 0.2,
-    "Water Usage (liter)": 0.001,
-    "Internet Usage (GB)": 0.01,
-    "Meat Consumption (Chicken, meal)": 6,
-    "Meat Consumption (Beef, meal)": 27,
-    "Vegetarian Meal (meal)": 1.5,
-    "Cooking (meal)": 0.5,
-    "Plastic Bag (unit)": 0.01,
-    "Streaming Video (hour)": 0.36,
-    "Shower (10 minutes)": 0.9,
+    # Transportation
+    "Car Usage (km)": 0.2,  # kg CO₂ per km
+    "Motorcycle Usage (km)": 0.1,  # kg CO₂ per km
+    "Public Bus (km)": 0.05,  # kg CO₂ per passenger km
+    "Train/Subway (km)": 0.04,  # kg CO₂ per passenger km
+    "Air Travel (short-haul, km)": 0.15,  # kg CO₂ per passenger km
+    "Air Travel (long-haul, km)": 0.11,  # kg CO₂ per passenger km
+    "Bicycle Manufacturing (unit)": 5,  # kg CO₂ per bicycle
+    "Walking Shoes (pair)": 20,  # kg CO₂ per pair
+
+    # Energy and Utilities
+    "Electricity Usage (kWh)": 0.5,  # kg CO₂ per kWh
+    "Natural Gas Usage (kWh)": 0.2,  # kg CO₂ per kWh
+    "Water Usage (liter)": 0.001,  # kg CO₂ per liter (pumping/treatment)
+    "Internet Usage (GB)": 0.01,  # kg CO₂ per GB data usage
+    "Heating/Cooling (hour)": 1.5,  # kg CO₂ per hour for HVAC systems
+    "Air Conditioner (hour)": 1.2,  # kg CO₂ per hour
+    "Space Heater (hour)": 1.5,  # kg CO₂ per hour
+    "Ceiling Fan (hour)": 0.03,  # kg CO₂ per hour
+
+    # Food and Cooking
+    "Microwave (minute)": 0.02,  # kg CO₂ per minute
+    "Electric Oven (hour)": 1.5,  # kg CO₂ per hour
+    "Gas Stove (hour)": 0.5,  # kg CO₂ per hour
+    "Refrigerator (day)": 0.8,  # kg CO₂ per day
+    "Dishwasher (cycle)": 0.7,  # kg CO₂ per cycle
+    "Toaster (minute)": 0.02,  # kg CO₂ per minute
+    "Coffee Maker (minute)": 0.02,  # kg CO₂ per minute
+    "Kettle (boiling 1 liter)": 0.06,  # kg CO₂ per liter
+    "Cooking (meal)": 0.5,  # kg CO₂ per meal
+    "Packaged Snacks (kg)": 2,  # kg CO₂ per kg
+    "Bottled Water (bottle)": 0.3,  # kg CO₂ per bottle
+    "Soft Drinks (liter)": 0.5,  # kg CO₂ per liter
+    "Meat Consumption (Chicken, meal)": 6,  # kg CO₂ per meal
+    "Meat Consumption (Beef, meal)": 27,  # kg CO₂ per meal
+    "Vegetarian Meal (meal)": 1.5,  # kg CO₂ per meal
+
+    # Household Appliances
+    "Washing Machine (load)": 0.5,  # kg CO₂ per load
+    "Dryer (load)": 2,  # kg CO₂ per load
+    "Vacuum Cleaner (hour)": 0.2,  # kg CO₂ per hour
+    "Television (hour)": 0.08,  # kg CO₂ per hour
+    "Computer (hour)": 0.06,  # kg CO₂ per hour
+    "Smartphone Charging (charge)": 0.005,  # kg CO₂ per charge
+    "Tablet Charging (charge)": 0.01,  # kg CO₂ per charge
+    "Ironing (hour)": 0.4,  # kg CO₂ per hour
+    "Hair Dryer (minute)": 0.01,  # kg CO₂ per minute
+    "Lighting (LED bulb, hour)": 0.005,  # kg CO₂ per hour
+    "Lighting (Incandescent bulb, hour)": 0.06,  # kg CO₂ per hour
+    "Printer (per page)": 0.05,  # kg CO₂ per page
+    "Router/Modem (day)": 0.1,  # kg CO₂ per day
+
+    # Clothing and Accessories
+    "T-Shirt (unit)": 5,  # kg CO₂ per shirt
+    "Jeans (pair)": 15,  # kg CO₂ per pair
+    "Shoes (pair)": 20,  # kg CO₂ per pair
+    "Jacket (unit)": 25,  # kg CO₂ per unit
+    "Hat/Cap (unit)": 1.5,  # kg CO₂ per unit
+
+    # Miscellaneous
+    "Plastic Bag (unit)": 0.01,  # kg CO₂ per bag
+    "Paper Bag (unit)": 0.02,  # kg CO₂ per bag
+    "Streaming Video (hour)": 0.36,  # kg CO₂ per hour in HD
+    "Shower (10 minutes)": 0.9,  # kg CO₂ per 10 minutes
+    "Laundry Detergent (kg)": 1,  # kg CO₂ per kg
+    "Deodorant (spray bottle)": 0.5,  # kg CO₂ per bottle
+    "Book (unit)": 7,  # kg CO₂ per book
+    "Mobile Phone (unit)": 85,  # kg CO₂ per unit (manufacturing)
+    "Laptop (unit)": 400,  # kg CO₂ per unit (manufacturing)
+    "Headphones (unit)": 20,  # kg CO₂ per unit
+    "Smartwatch (unit)": 35,  # kg CO₂ per unit
+    "Batteries (AA, unit)": 0.1,  # kg CO₂ per unit
+    "Candles (per hour)": 0.1,  # kg CO₂ per hour of burning
+    "Hand Soap (bottle)": 1,  # kg CO₂ per bottle
+    "Toothpaste (tube)": 0.8,  # kg CO₂ per tube
 }
+
 
 TIPS = [
     "Use public transportation to reduce emissions.",
