@@ -18,7 +18,7 @@ Eco-Buddy is a user-friendly desktop application designed to help individuals tr
 ### Installation
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-repo/eco-buddy.git
+   git clone https://github.com/codingwithnsh/Eco-Buddy.git
    cd eco-buddy
    ```
 2. Install the dependencies:
